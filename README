@@ -1,1 +1,25 @@
 jQuery plugin useful for adding a “human touch” to data. 
+
+Examples:
+
+apnumber
+1 becomes one
+2 becomes two
+
+intcomma
+1337 becomes 1,337
+1000000 becomes 1,000,000
+
+intword
+1000000 becomes 1.0 million
+1000000000 becomes 1.0 billion
+
+naturalday
+April 16, 2012 becomes today
+April 15, 2012 becomes yesterday
+
+ordinal
+1 becomes 1st
+2 becomes 2nd
+
+...
