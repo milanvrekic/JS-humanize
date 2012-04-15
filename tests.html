@@ -1,0 +1,81 @@
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="jquery.naturalize.min.js"></script>
+
+<script type="text/javascript">
+function runTests( tests ) {
+	document.write( '<table border="1">' );
+	document.write( '<tr><th>Test</th><th>Result</th></tr>' );
+	
+	for ( i in tests ) {
+		document.write( '<tr>' );
+		tests[ i ] = tests[ i ].replace(/(\r\n|\n|\r)/gm,"\\n");
+		document.write( '<td>'+tests[ i ]+'</td>' );
+		document.write( '<td>'+eval( tests[ i ] ).replace(/(<)/gm,"&lt;").replace(/(>)/gm,"&gt;")+'</td>' );
+	
+		
+		document.write( '</tr>' );
+	}
+	document.write( '</table>' );
+}
+var tests = [
+	'$.intcomma( 4500000 )'
+,	'$.intcomma( 450000 )'
+,	'$.intcomma( 45000 )'
+,	'$.intword( 1000000 )'
+,	'$.intword( 1200000 )'
+,	'$.intword( 1200000000 )'
+,	'$.naturalDay( time() )'
+,	'$.naturalDay( time() +60*60*24 )'
+,	'$.naturalDay( time() -60*60*24 )'
+,	'$.naturalDay( time() -2*60*60*24 )'
+,	'$.naturalDay( "13 April 2012" )'
+,	'$.naturalDay( "15 April 2012 16:25:30" )'
+,	'$.naturalTime( time() )'
+,	'$.naturalTime( time() +130 )'
+,	'$.naturalTime( time() +70 )'
+,	'$.naturalTime( time() +20 )'
+,	'$.naturalTime( time() -20 )'
+,	'$.naturalTime( time() -70 )'
+,	'$.naturalTime( time() -130 )'
+,	'$.naturalTime( time() +70 )'
+,	'$.naturalTime( time() +130 )'
+,	'$.naturalTime( time() +60*20 )'
+,	'$.naturalTime( time() +60*60*5 )'
+,	'$.naturalTime( time() +60*60*20 )'
+,	'$.ordinal( 1 )'
+,	'$.ordinal( 2 )'
+,	'$.ordinal( 3 )'
+,	'$.ordinal( 4 )'
+,	'$.ordinal( 11 )'
+,	'$.ordinal( 12 )'
+,	'$.ordinal( 13 )'
+,	'$.ordinal( 14 )'
+,	'$.ordinal( 24 )'
+,	'$.ordinal( 127 )'
+,	'$.filesizeformat( 123456789 )'
+,	'$.filesizeformat( 1234567890 )'
+,	'$.filesizeformat( 123456 )'
+,	'$.filesizeformat( 123 )'
+,	'$.linebreaks( "Play\ning with blank lines" )'
+,	'$.linebreaks( "Here is what happens\nwhen we add newlines\n\nfollowed by\n\na blank line" )'
+,	'$.linebreaksbr( "Play\ning with blank lines" )'
+,	'$.linebreaksbr( "Play\n\ning with more \n\nblank lines" )'
+,	'$.pluralize( 1 )'
+,	'$.pluralize( 2 )'
+,	'$.pluralize( 1, "es" )'
+,	'$.pluralize( 2, "es" )'
+,	'$.pluralize( 1, "y", "ies" )'
+,	'$.pluralize( 2, "y", "ies" )'
+,	'$.truncatechars( "hello world", 20 )'
+,	'$.truncatechars( "hello world", 13 )'
+,	'$.truncatechars( "hello world", 10 )'
+,	'$.truncatechars( "hello world", 5 )'
+,	'$.truncatewords( "Playing with truncate words", 5 )'
+,	'$.truncatewords( "Playing with truncate words", 4 )'
+,	'$.truncatewords( "Playing with truncate words", 3 )'
+,	'$.truncatewords( "Playing with truncate words", 2 )'
+,	'$.truncatewords( "Playing with truncate words", 1 )'
+,	'$.truncatewords( "Playing with truncate words", 0 )'
+];
+runTests( tests );
+</script>
