@@ -262,7 +262,7 @@ Humanize.intword = function( number ) {
 	} else if( number < 1000000000000000 ) {
 		return Humanize.intcomma( number / 1000000000000.0, 1 ) + " trillion";
 	} 
-	return number;	// too big.
+	return "" + number;	// too big.
 }
 
 
@@ -383,7 +383,7 @@ Humanize.naturalTime = function( timestamp, format ) {
 			} else if ( minutes === 1 ) {
 				return "one minute ago";
 			} else {
-				return ""+minutes+" minutes ago";
+				return minutes+" minutes ago";
 			}
 		}
 	}
