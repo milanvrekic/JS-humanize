@@ -1,7 +1,9 @@
 function time() {
 	return ( new Date() ).getTime() / 1000;
 }
-(function( $ ){
+
+// Set up namespace to which we'll bind functions
+window.Humanize = {}
 
 /*!
 PHP-inspired helper functions
@@ -209,10 +211,10 @@ Examples:
 10 becomes 10.
 You can pass in either an integer or a string representation of an integer.
 /**/
-$.apnumber = function( int ) {
+Humanize.apnumber = function( n ) {
 	var strings = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' ];
-	var result = strings[ parseInt( int ) -1 ];
-	return result !== undefined ? result : int;
+	var result = strings[ parseInt( n ) -1 ];
+	return result !== undefined ? result : n;
 };
 
 /*!
@@ -227,7 +229,7 @@ Examples:
 4500000 becomes 4,500,000.
 https://github.com/gburtini/Humanize-PHP/blob/master/Humanize.php
 /**/
-$.intcomma = function( number, decimals ) {
+Humanize.intcomma = function( number, decimals ) {
 	decimals = decimals === undefined ? 0 : decimals;
 	return number_format( number, decimals, '.', ',' );
 };
@@ -241,24 +243,24 @@ Examples:
 1200000 becomes 1.2 million.
 1200000000 becomes 1.2 billion.
 /**/
-$.intword = function( number ) {
+Humanize.intword = function( number ) {
 	number = parseInt( number );
 	if( number < 1000000 ) {
 		return number;
 	} else if( number < 100 ) {
-		return $.intcomma(number, 1 );
+		return Humanize.intcomma(number, 1 );
 	} else if( number < 1000 ) {
-		return $.intcomma( number / 100, 1 ) + " hundred";
+		return Humanize.intcomma( number / 100, 1 ) + " hundred";
 	} else if( number < 100000 ) {
-		return $.intcomma( number / 1000.0, 1 ) + " thousand";
+		return Humanize.intcomma( number / 1000.0, 1 ) + " thousand";
 	} else if( number < 1000000 ) {
-		return $.intcomma( number / 100000.0, 1 ) + " hundred thousand";
+		return Humanize.intcomma( number / 100000.0, 1 ) + " hundred thousand";
 	} else if( number < 1000000000 ) {
-		return $.intcomma( number / 1000000.0, 1 ) + " million";
+		return Humanize.intcomma( number / 1000000.0, 1 ) + " million";
 	} else if( number < 1000000000000 ) { //senseless on a 32 bit system probably.
-		return $.intcomma( number / 1000000000.0, 1 ) + " billion";
+		return Humanize.intcomma( number / 1000000000.0, 1 ) + " billion";
 	} else if( number < 1000000000000000 ) {
-		return $.intcomma( number / 1000000000000.0, 1 ) + " trillion";
+		return Humanize.intcomma( number / 1000000000000.0, 1 ) + " trillion";
 	} 
 	return number;	// too big.
 }
@@ -277,7 +279,7 @@ Examples (when ‘today’ is 17 Feb 2007):
 18 Feb 2007 becomes tomorrow.
 Any other day is formatted according to given argument or the DATE_FORMAT setting if no argument is given.
 /**/
-$.processDate = function( timestamp ) {
+Humanize.processDate = function( timestamp ) {
 	timestamp = timestamp === undefined ? time() : timestamp;
 	
 	if( parseInt( timestamp ) < 10000 ) {
@@ -287,8 +289,8 @@ $.processDate = function( timestamp ) {
 	return( parseInt( timestamp ) );
 
 };
-$.naturalDay = function(timestamp, format) {
-	timestamp = $.processDate( timestamp );
+Humanize.naturalDay = function(timestamp, format) {
+	timestamp = Humanize.processDate( timestamp );
 	var format = format === undefined ? 'Y-m-d' : format; //'F j, Y'
 
 	var oneday = 60 * 60 * 24;
@@ -330,15 +332,15 @@ Examples (when ‘now’ is 17 Feb 2007 16:30:00):
 17 Feb 2007 18:31:29 becomes 2 hours from now.
 18 Feb 2007 16:31:29 becomes 1 day from now.
 /**/
-$.naturalTime = function( timestamp, format ) {
-	timestamp = $.processDate( timestamp );
+Humanize.naturalTime = function( timestamp, format ) {
+	timestamp = Humanize.processDate( timestamp );
 	format = format === undefined ? 'g:ia' : format;
 	
 	
 	var now = time();
 	var hour = 60 * 60;
 	var seconds, minutes, hours;
-	if ( $.naturalDay( timestamp, format ) === 'today' ) {
+	if ( Humanize.naturalDay( timestamp, format ) === 'today' ) {
 		var hourago = now - hour;
 		var hourfromnow = now + hour;
 		// if timestamp passed in was after an hour ago...
@@ -400,7 +402,7 @@ Examples:
 3 becomes 3rd.
 You can pass in either an integer or a string representation of an integer.
 /**/
-$.ordinal = function( value ) {
+Humanize.ordinal = function( value ) {
 	var number = parseInt( value );
 	if( number === 0 ) {
 		return value; 	// could be a bad string or just a 0.
@@ -439,7 +441,7 @@ For example:
 {{ value|filesizeformat }}
 If value is 123456789, the output would be 117.7 MB.
 /**/
-$.filesizeformat = function(filesize) {
+Humanize.filesizeformat = function(filesize) {
 	if (filesize >= 1073741824) {
 		 filesize = number_format(filesize / 1073741824, 2, '.', '') + ' Gb';
 	} else { 
@@ -464,7 +466,7 @@ For example:
 {{ value|linebreaks }}
 If value is Joel\nis a slug, the output will be <p>Joel<br />is a slug</p>.
 /**/
-$.linebreaks = function( str ) {
+Humanize.linebreaks = function( str ) {
 	str = str.replace( /(\r\n|\n|\r){2}/gm, "</p><p>" );
 	str = str.replace( /(\r\n|\n|\r)/gm, "<br />" );
 	return '<p>' + str + '</p>';
@@ -478,7 +480,7 @@ For example:
 {{ value|linebreaksbr }}
 If value is Joel\nis a slug, the output will be Joel<br />is a slug.
 /**/
-$.linebreaksbr = function( str ) {
+Humanize.linebreaksbr = function( str ) {
 	return str.replace( /(\r\n|\n|\r)/gm, "<br />" );
 };
 /*!
@@ -501,7 +503,7 @@ Example:
 
 You have {{ num_cherries }} cherr{{ num_cherries|pluralize:"y,ies" }}.
 /**/
-$.pluralize = function( number, suffix1, suffix2 ) {
+Humanize.pluralize = function( number, suffix1, suffix2 ) {
 	var singular = '', plural = 's';
 	if ( suffix2 !== undefined ) {
 		singular = suffix1;
@@ -525,7 +527,7 @@ For example:
 {{ value|truncatechars:9 }}
 If value is "Joel is a slug", the output will be "Joel i...".
 /**/
-$.truncatechars = function( string, length ) {
+Humanize.truncatechars = function( string, length ) {
 	if ( string.length > length ) {
 		return string.substr( 0,length -3 ) + '...';
 	} else {
@@ -545,7 +547,7 @@ If value is "Joel is a slug", the output will be "Joel is ...".
 
 Newlines within the string will be removed.
 /**/
-$.truncatewords = function( string, length ) {
+Humanize.truncatewords = function( string, length ) {
 	var array = string.split( ' ' );
 	var result = '';
 	for ( var i = 0; i < length; i++ ) {
@@ -560,4 +562,3 @@ $.truncatewords = function( string, length ) {
 	}
 	return result;
 };
-})( jQuery );
