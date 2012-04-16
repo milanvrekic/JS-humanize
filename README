@@ -2,24 +2,22 @@ jQuery plugin useful for adding a “human touch” to data.
 
 Examples:
 
-apnumber
-1 becomes one
-2 becomes two
+intcomma (4500000 = 4,500,000)
 
-intcomma
-1337 becomes 1,337
-1000000 becomes 1,000,000
+intword (1000000 = 1.0 million)
 
-intword
-1000000 becomes 1.0 million
-1000000000 becomes 1.0 billion
+naturalDay (15 April 2012 16:25:30 = Today)
 
-naturalday
-April 16, 2012 becomes today
-April 15, 2012 becomes yesterday
+ordinal (3 = 3rd)
 
-ordinal
-1 becomes 1st
-2 becomes 2nd
+filesizeformat (1234567890 = 1.15 Gb)
 
-...
+linebreaks (Play\ning with blank lines = <p>Play<br />ing with blank lines</p>)
+
+linebreaksbr (Play\ning with blank lines = Play<br />ing with blank lines)
+
+pluralize (1, "y", "ies" = y)
+
+truncatechars ("hello world", 10 = "hello w...")
+
+truncatewords ("Playing with truncate words", 3 = Playing with truncate ...)
