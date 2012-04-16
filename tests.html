@@ -1,4 +1,4 @@
-<script type="text/javascript" src="humanize.min.js"></script>
+<script type="text/javascript" src="humanize.js"></script>
 
 <script type="text/javascript">
 function runTests( tests ) {
@@ -7,9 +7,17 @@ function runTests( tests ) {
 	
 	for ( i in tests ) {
 		document.write( '<tr>' );
-		tests[ i ] = tests[ i ].replace(/(\r\n|\n|\r)/gm,"\\n");
-		document.write( '<td>'+tests[ i ]+'</td>' );
-		document.write( '<td>'+eval( tests[ i ] ).replace(/(<)/gm,"&lt;").replace(/(>)/gm,"&gt;")+'</td>' );
+		var testFunction = tests[ i ][0].replace(/(\r\n|\n|\r)/gm,"\\n");
+		document.write( '<td>'+testFunction+'</td>' );
+		var result = eval( testFunction );
+		var expected = tests[i][1];
+		var isRegexp = expected instanceof RegExp;
+		if (isRegexp) {
+			var passed = (expected.exec(result)[0] === result);
+		} else {
+			var passed = (result === expected);
+		}
+		document.write( '<td style="background-color:'+(passed?"green":"red")+'">'+result.replace(/(<)/gm,"&lt;").replace(/(>)/gm,"&gt;")+'</td>' );
 	
 		
 		document.write( '</tr>' );
@@ -17,64 +25,64 @@ function runTests( tests ) {
 	document.write( '</table>' );
 }
 var tests = [
-	'Humanize.intcomma( 4500000 )'
-,	'Humanize.intcomma( 450000 )'
-,	'Humanize.intcomma( 45000 )'
-,	'Humanize.intword( 1000000 )'
-,	'Humanize.intword( 1200000 )'
-,	'Humanize.intword( 1200000000 )'
-,	'Humanize.naturalDay( time() )'
-,	'Humanize.naturalDay( time() +60*60*24 )'
-,	'Humanize.naturalDay( time() -60*60*24 )'
-,	'Humanize.naturalDay( time() -2*60*60*24 )'
-,	'Humanize.naturalDay( "13 April 2012" )'
-,	'Humanize.naturalDay( "15 April 2012 16:25:30" )'
-,	'Humanize.naturalTime( time() )'
-,	'Humanize.naturalTime( time() +130 )'
-,	'Humanize.naturalTime( time() +70 )'
-,	'Humanize.naturalTime( time() +20 )'
-,	'Humanize.naturalTime( time() -20 )'
-,	'Humanize.naturalTime( time() -70 )'
-,	'Humanize.naturalTime( time() -130 )'
-,	'Humanize.naturalTime( time() +70 )'
-,	'Humanize.naturalTime( time() +130 )'
-,	'Humanize.naturalTime( time() +60*20 )'
-,	'Humanize.naturalTime( time() +60*60*5 )'
-,	'Humanize.naturalTime( time() +60*60*20 )'
-,	'Humanize.ordinal( 1 )'
-,	'Humanize.ordinal( 2 )'
-,	'Humanize.ordinal( 3 )'
-,	'Humanize.ordinal( 4 )'
-,	'Humanize.ordinal( 11 )'
-,	'Humanize.ordinal( 12 )'
-,	'Humanize.ordinal( 13 )'
-,	'Humanize.ordinal( 14 )'
-,	'Humanize.ordinal( 24 )'
-,	'Humanize.ordinal( 127 )'
-,	'Humanize.filesizeformat( 123456789 )'
-,	'Humanize.filesizeformat( 1234567890 )'
-,	'Humanize.filesizeformat( 123456 )'
-,	'Humanize.filesizeformat( 123 )'
-,	'Humanize.linebreaks( "Play\ning with blank lines" )'
-,	'Humanize.linebreaks( "Here is what happens\nwhen we add newlines\n\nfollowed by\n\na blank line" )'
-,	'Humanize.linebreaksbr( "Play\ning with blank lines" )'
-,	'Humanize.linebreaksbr( "Play\n\ning with more \n\nblank lines" )'
-,	'Humanize.pluralize( 1 )'
-,	'Humanize.pluralize( 2 )'
-,	'Humanize.pluralize( 1, "es" )'
-,	'Humanize.pluralize( 2, "es" )'
-,	'Humanize.pluralize( 1, "y", "ies" )'
-,	'Humanize.pluralize( 2, "y", "ies" )'
-,	'Humanize.truncatechars( "hello world", 20 )'
-,	'Humanize.truncatechars( "hello world", 13 )'
-,	'Humanize.truncatechars( "hello world", 10 )'
-,	'Humanize.truncatechars( "hello world", 5 )'
-,	'Humanize.truncatewords( "Playing with truncate words", 5 )'
-,	'Humanize.truncatewords( "Playing with truncate words", 4 )'
-,	'Humanize.truncatewords( "Playing with truncate words", 3 )'
-,	'Humanize.truncatewords( "Playing with truncate words", 2 )'
-,	'Humanize.truncatewords( "Playing with truncate words", 1 )'
-,	'Humanize.truncatewords( "Playing with truncate words", 0 )'
+	['Humanize.intcomma( 4500000 )','4,500,000']
+,	['Humanize.intcomma( 450000 )', '450,000']
+,	['Humanize.intcomma( 45000 )', '45,000']
+,	['Humanize.intword( 1000000 )', '1.0 million']
+,	['Humanize.intword( 1200000 )', '1.2 million']
+,	['Humanize.intword( 1200000000 )', '1.2 billion']
+,	['Humanize.naturalDay( time() )', 'today']
+,	['Humanize.naturalDay( time() +60*60*24 )', 'tomorrow']
+,	['Humanize.naturalDay( time() -60*60*24 )', 'yesterday']
+,	['Humanize.naturalDay( time() -2*60*60*24 )', '2012-04-14']
+,	['Humanize.naturalDay( "13 April 2012" )', '2012-04-13']
+,	['Humanize.naturalDay( "15 April 2012 16:25:30" )', 'yesterday']
+,	['Humanize.naturalTime( time() )', 'now']
+,	['Humanize.naturalTime( time() +130 )', 'in 2 minutes']
+,	['Humanize.naturalTime( time() +70 )', 'in one minute']
+,	['Humanize.naturalTime( time() +20 )', /in (19|20|21) seconds/] // these should be 20 secs exactly ?
+,	['Humanize.naturalTime( time() -20 )', /(19|20|21) seconds ago/] // ^^
+,	['Humanize.naturalTime( time() -70 )', 'one minute ago']
+,	['Humanize.naturalTime( time() -130 )', '2 minutes ago']
+,	['Humanize.naturalTime( time() +70 )', 'in one minute']
+,	['Humanize.naturalTime( time() +130 )', 'in 2 minutes']
+,	['Humanize.naturalTime( time() +60*20 )', 'in 20 minutes']
+,	['Humanize.naturalTime( time() +60*60*5 )', 'in about 5 hours']
+,	['Humanize.naturalTime( time() +60*60*20 )', /\d+:\d\d[ap]m/]
+,	['Humanize.ordinal( 1 )', '1st']
+,	['Humanize.ordinal( 2 )', '2nd']
+,	['Humanize.ordinal( 3 )', '3rd']
+,	['Humanize.ordinal( 4 )', '4th']
+,	['Humanize.ordinal( 11 )', '11th']
+,	['Humanize.ordinal( 12 )', '12th']
+,	['Humanize.ordinal( 13 )', '13th']
+,	['Humanize.ordinal( 14 )', '14th']
+,	['Humanize.ordinal( 24 )', '24th']
+,	['Humanize.ordinal( 127 )', '127th']
+,	['Humanize.filesizeformat( 123456789 )', '117.74 Mb']
+,	['Humanize.filesizeformat( 1234567890 )', '1.15 Gb']
+,	['Humanize.filesizeformat( 123456 )', '121 Kb']
+,	['Humanize.filesizeformat( 123 )', '123 bytes']
+,	['Humanize.linebreaks( "Play\ning with blank lines" )', '<p>Play<br />ing with blank lines</p>']
+,	['Humanize.linebreaks( "Here is what happens\nwhen we add newlines\n\nfollowed by\n\na blank line" )', '<p>Here is what happens<br />when we add newlines</p><p>followed by</p><p>a blank line</p>']
+,	['Humanize.linebreaksbr( "Play\ning with blank lines" )', 'Play<br />ing with blank lines']
+,	['Humanize.linebreaksbr( "Play\n\ning with more \n\nblank lines" )', 'Play<br /><br />ing with more <br /><br />blank lines']
+,	['Humanize.pluralize( 1 )', '']
+,	['Humanize.pluralize( 2 )', 's']
+,	['Humanize.pluralize( 1, "es" )', '']
+,	['Humanize.pluralize( 2, "es" )', 'es']
+,	['Humanize.pluralize( 1, "y", "ies" )', 'y']
+,	['Humanize.pluralize( 2, "y", "ies" )', 'ies']
+,	['Humanize.truncatechars( "hello world", 20 )', 'hello world']
+,	['Humanize.truncatechars( "hello world", 13 )', 'hello world']
+,	['Humanize.truncatechars( "hello world", 10 )', 'hello w...']
+,	['Humanize.truncatechars( "hello world", 5 )', 'he...']
+,	['Humanize.truncatewords( "Playing with truncate words", 5 )', 'Playing with truncate words']
+,	['Humanize.truncatewords( "Playing with truncate words", 4 )', 'Playing with truncate words']
+,	['Humanize.truncatewords( "Playing with truncate words", 3 )', 'Playing with truncate ...']
+,	['Humanize.truncatewords( "Playing with truncate words", 2 )', 'Playing with ...']
+,	['Humanize.truncatewords( "Playing with truncate words", 1 )', 'Playing ...']
+,	['Humanize.truncatewords( "Playing with truncate words", 0 )', '...']
 ];
 runTests( tests );
 </script>
