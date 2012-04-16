@@ -564,6 +564,7 @@ window.Humanize = {};
 		if ( array.length > length ) {
 			result += '...';
 		}
+		result = result.trim();
 		return result;
 	};
 
