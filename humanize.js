@@ -34,13 +34,13 @@ function date (format, timestamp) {
 		d: function () { // Day of month w/leading 0; 01..31
 			return _pad(f.j(), 2);
 		},
-		D: function () { // Shorthand day name; Mon...Sun
+		D: function () { // Shorthand day name; Mon…Sun
 			return f.l().slice(0, 3);
 		},
 		j: function () { // Day of month; 1..31
 			return jsdate.getDate();
 		},
-		l: function () { // Full day name; Monday...Sunday
+		l: function () { // Full day name; Monday…Sunday
 			return txt_words[f.w()] + 'day';
 		},
 		N: function () { // ISO-8601 day of week; 1[Mon]..7[Sun]
@@ -67,19 +67,19 @@ function date (format, timestamp) {
 		},
  
 		// Month
-		F: function () { // Full month name; January...December
+		F: function () { // Full month name; January…December
 			return txt_words[6 + f.n()];
 		},
-		m: function () { // Month w/leading 0; 01...12
+		m: function () { // Month w/leading 0; 01…12
 			return _pad(f.n(), 2);
 		},
-		M: function () { // Shorthand month name; Jan...Dec
+		M: function () { // Shorthand month name; Jan…Dec
 			return f.F().slice(0, 3);
 		},
-		n: function () { // Month; 1...12
+		n: function () { // Month; 1…12
 			return jsdate.getMonth() + 1;
 		},
-		t: function () { // Days in month; 28...31
+		t: function () { // Days in month; 28…31
 			return (new Date(f.Y(), f.n(), 0)).getDate();
 		},
 
@@ -93,10 +93,10 @@ function date (format, timestamp) {
 				Y = f.Y();
 			return Y + (n === 12 && W < 9 ? -1 : n === 1 && W > 9);
 		},
-		Y: function () { // Full year; e.g. 1980...2010
+		Y: function () { // Full year; e.g. 1980…2010
 			return jsdate.getFullYear();
 		},
-		y: function () { // Last two digits of year; 00...99
+		y: function () { // Last two digits of year; 00…99
 			return (f.Y() + "").slice(-2);
 		},
  
@@ -157,7 +157,7 @@ function date (format, timestamp) {
 			var O = f.O();
 			return (O.substr(0, 3) + ":" + O.substr(3, 2));
 		},
-		Z: function () { // Timezone offset in seconds (-43200...50400)
+		Z: function () { // Timezone offset in seconds (-43200…50400)
 			return -jsdate.getTimezoneOffset() * 60;
 		},
 		// Full Date/Time
@@ -343,7 +343,7 @@ Humanize.naturalTime = function( timestamp, format ) {
 	if ( Humanize.naturalDay( timestamp, format ) === 'today' ) {
 		var hourago = now - hour;
 		var hourfromnow = now + hour;
-		// if timestamp passed in was after an hour ago...
+		// if timestamp passed in was after an hour ago…
 		if ( timestamp > hourago ) {
 			/*!
 			The future
@@ -518,18 +518,18 @@ Humanize.pluralize = function( number, suffix1, suffix2 ) {
 /*!
 truncatechars
 New in Django 1.4: Please see the release notes
-Truncates a string if it is longer than the specified number of characters. Truncated strings will end with a translatable ellipsis sequence ("...").
+Truncates a string if it is longer than the specified number of characters. Truncated strings will end with a translatable ellipsis sequence ("…").
 
 Argument: Number of characters to truncate to
 
 For example:
 
 {{ value|truncatechars:9 }}
-If value is "Joel is a slug", the output will be "Joel i...".
+If value is "Joel is a slug", the output will be "Joel is …".
 /**/
 Humanize.truncatechars = function( string, length ) {
 	if ( string.length > length ) {
-		return string.substr( 0,length -3 ) + '...';
+		return string.substr( 0,length -1 ) + '…';
 	} else {
 		return string;
 	}
@@ -543,7 +543,7 @@ Argument: Number of words to truncate after
 For example:
 
 {{ value|truncatewords:2 }}
-If value is "Joel is a slug", the output will be "Joel is ...".
+If value is "Joel is a slug", the output will be "Joel is …".
 
 Newlines within the string will be removed.
 /**/
@@ -558,7 +558,7 @@ Humanize.truncatewords = function( string, length ) {
 		result += ' ';
 	}
 	if ( array.length > length ) {
-		result += '...';
+		result += '…';
 	}
 	return result;
 };
