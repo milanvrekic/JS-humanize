@@ -211,10 +211,10 @@ Examples:
 10 becomes 10.
 You can pass in either an integer or a string representation of an integer.
 /**/
-Humanize.apnumber = function( int ) {
+Humanize.apnumber = function( n ) {
 	var strings = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' ];
-	var result = strings[ parseInt( int ) -1 ];
-	return result !== undefined ? result : int;
+	var result = strings[ parseInt( n ) -1 ];
+	return result !== undefined ? result : n;
 };
 
 /*!
