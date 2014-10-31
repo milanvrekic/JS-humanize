@@ -1,4 +1,4 @@
-JS library useful for adding a “human touch” to data. 
+JS library useful for adding a “human touch” to data.
 
 Examples:
 
@@ -10,7 +10,7 @@ naturalDay (15 April 2012 16:25:30 = Today)
 
 ordinal (3 = 3rd)
 
-filesizeformat (1234567890 = 1.15 Gb)
+filesizeformat (1234567890 = 1.15 GB)
 
 linebreaks (Play\ning with blank lines = <p>Play<br />ing with blank lines</p>)
 
