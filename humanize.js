@@ -9,8 +9,8 @@ window.Humanize = {}
 PHP-inspired helper functions
 /**/
 function date (format, timestamp) {
-	// Format a local date/time  
-	// 
+	// Format a local date/time
+	//
 	// version: 1109.2015
 	// discuss at: http://phpjs.org/functions/date
 	var that = this,
@@ -58,14 +58,14 @@ function date (format, timestamp) {
 				b = new Date(f.Y(), 0, 1);
 			return Math.round((a - b) / 864e5) + 1;
 		},
- 
+
 		// Week
 		W: function () { // ISO-8601 week number
 			var a = new Date(f.Y(), f.n() - 1, f.j() - f.N() + 3),
 				b = new Date(a.getFullYear(), 0, 4);
 			return _pad(1 + Math.round((a - b) / 864e5 / 7), 2);
 		},
- 
+
 		// Month
 		F: function () { // Full month name; January…December
 			return txt_words[6 + f.n()];
@@ -99,7 +99,7 @@ function date (format, timestamp) {
 		y: function () { // Last two digits of year; 00…99
 			return (f.Y() + "").slice(-2);
 		},
- 
+
 		// Time
 		a: function () { // am or pm
 			return jsdate.getHours() > 11 ? "pm" : "am";
@@ -188,15 +188,15 @@ function number_format( number, decimals, dec_point, thousands_sep ) {
 	// +	 bugfix by: Michael White (http://crestidg.com)
 	// +	 bugfix by: Benjamin Lupton
 	// +	 bugfix by: Allan Jensen (http://www.winternet.no)
-	// +	revised by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)	
+	// +	revised by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
 	// *	 example 1: number_format(1234.5678, 2, '.', '');
-	// *	 returns 1: 1234.57	 
- 
+	// *	 returns 1: 1234.57
+
 	var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
 	var d = dec_point == undefined ? "," : dec_point;
 	var t = thousands_sep == undefined ? "." : thousands_sep, s = n < 0 ? "-" : "";
 	var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
- 
+
 	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 }
 
@@ -261,7 +261,7 @@ Humanize.intword = function( number ) {
 		return Humanize.intcomma( number / 1000000000.0, 1 ) + " billion";
 	} else if( number < 1000000000000000 ) {
 		return Humanize.intcomma( number / 1000000000000.0, 1 ) + " trillion";
-	} 
+	}
 	return "" + number;	// too big.
 }
 
@@ -281,7 +281,7 @@ Any other day is formatted according to given argument or the DATE_FORMAT settin
 /**/
 Humanize.processDate = function( timestamp ) {
 	timestamp = timestamp === undefined ? time() : timestamp;
-	
+
 	if( parseInt( timestamp ) < 10000 ) {
 		// x( date( 'y-m-d h-i-s', Date.parse( timestamp ) / 1000 ) );
 		return Date.parse( timestamp ) / 1000;
@@ -295,12 +295,12 @@ Humanize.naturalDay = function(timestamp, format) {
 
 	var oneday = 60 * 60 * 24;
 	var d = new Date();
-	
+
 	var today = ( new Date( d.getFullYear(), d.getMonth(), d.getDate() ) ).getTime() / 1000;
 	var tomorrow = today + oneday;
 	var end_tomorrow = tomorrow + oneday;
 	var yesterday = today - oneday;
-	
+
 	if( timestamp >= yesterday && timestamp < today ) {
 		return "yesterday";
 	} else if( timestamp >= today && timestamp < tomorrow ) {
@@ -335,8 +335,8 @@ Examples (when ‘now’ is 17 Feb 2007 16:30:00):
 Humanize.naturalTime = function( timestamp, format ) {
 	timestamp = Humanize.processDate( timestamp );
 	format = format === undefined ? 'g:ia' : format;
-	
-	
+
+
 	var now = time();
 	var hour = 60 * 60;
 	var seconds, minutes, hours;
@@ -359,7 +359,7 @@ Humanize.naturalTime = function( timestamp, format ) {
 					if ( seconds <= 10 ) {
 						return "just now"
 					} else {
-						
+
 						return "in "+seconds+" seconds";
 					}
 				} else if ( minutes === 1 ) {
@@ -419,7 +419,7 @@ Humanize.ordinal = function( value ) {
 		case 1:
 			end = "st";
 		break;
-		case 2: 
+		case 2:
 			end = "nd";
 		break;
 		case 3:
@@ -428,7 +428,7 @@ Humanize.ordinal = function( value ) {
 		default:
 			end = "th";
 		break;
-	}	
+	}
 	return number + end;
 };
 
@@ -443,13 +443,13 @@ If value is 123456789, the output would be 117.7 MB.
 /**/
 Humanize.filesizeformat = function(filesize) {
 	if (filesize >= 1073741824) {
-		 filesize = number_format(filesize / 1073741824, 2, '.', '') + ' Gb';
-	} else { 
+		 filesize = number_format(filesize / 1073741824, 2, '.', '') + ' GB';
+	} else {
 		if (filesize >= 1048576) {
-	 		filesize = number_format(filesize / 1048576, 2, '.', '') + ' Mb';
-   	} else { 
+	 		filesize = number_format(filesize / 1048576, 2, '.', '') + ' MB';
+   	} else {
 			if (filesize >= 1024) {
-			filesize = number_format(filesize / 1024, 0) + ' Kb';
+			filesize = number_format(filesize / 1024, 0) + ' kB';
   		} else {
 			filesize = number_format(filesize, 0) + ' bytes';
 			};
@@ -511,7 +511,7 @@ Humanize.pluralize = function( number, suffix1, suffix2 ) {
 	} else if ( suffix1 !== undefined ) {
 		plural = suffix1;
 	}
-	
+
 	return parseInt( number ) === 1 ? singular : plural;
 };
 

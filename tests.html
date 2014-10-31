@@ -4,7 +4,7 @@
 function runTests( tests ) {
 	document.write( '<table border="1">' );
 	document.write( '<tr><th>Test</th><th>Result</th></tr>' );
-	
+
 	for ( i in tests ) {
 		document.write( '<tr>' );
 		var testFunction = tests[ i ][0].replace(/(\r\n|\n|\r)/gm,"\\n");
@@ -18,8 +18,8 @@ function runTests( tests ) {
 			var passed = (result === expected);
 		}
 		document.write( '<td style="background-color:'+(passed?"green":"red")+'">'+result.replace(/(<)/gm,"&lt;").replace(/(>)/gm,"&gt;")+'</td>' );
-	
-		
+
+
 		document.write( '</tr>' );
 	}
 	document.write( '</table>' );
@@ -59,9 +59,9 @@ var tests = [
 ,	['Humanize.ordinal( 14 )', '14th']
 ,	['Humanize.ordinal( 24 )', '24th']
 ,	['Humanize.ordinal( 127 )', '127th']
-,	['Humanize.filesizeformat( 123456789 )', '117.74 Mb']
-,	['Humanize.filesizeformat( 1234567890 )', '1.15 Gb']
-,	['Humanize.filesizeformat( 123456 )', '121 Kb']
+,	['Humanize.filesizeformat( 123456789 )', '117.74 MB']
+,	['Humanize.filesizeformat( 1234567890 )', '1.15 GB']
+,	['Humanize.filesizeformat( 123456 )', '121 kB']
 ,	['Humanize.filesizeformat( 123 )', '123 bytes']
 ,	['Humanize.linebreaks( "Play\ning with blank lines" )', '<p>Play<br />ing with blank lines</p>']
 ,	['Humanize.linebreaks( "Here is what happens\nwhen we add newlines\n\nfollowed by\n\na blank line" )', '<p>Here is what happens<br />when we add newlines</p><p>followed by</p><p>a blank line</p>']
