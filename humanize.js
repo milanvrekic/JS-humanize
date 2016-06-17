@@ -1,4 +1,8 @@
 // Set up namespace to which we'll bind functions
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> joebain-master
 window.Humanize = {}
 
 /*!
@@ -166,19 +170,15 @@ function date (format, timestamp) {
 		U: function () { // Seconds since UNIX epoch
 			return jsdate.getTime() / 1000 | 0;
 		}
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> joebain-master
 window.Humanize = {};
 
 
 // enclose everything in a scope for privacy
 (function() {
-
-	/*!
-	PHP-inspired helper functions
-	/**/
-	function time() {
-		return ( new Date() ).getTime() / 1000;
-	}
-
 	function date (format, timestamp) {
 		// Format a local date/time  
 		// 
@@ -386,6 +386,10 @@ window.Humanize = {};
 		var strings = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' ];
 		var result = strings[ parseInt( n ) -1 ];
 		return result !== undefined ? result : n;
+<<<<<<< HEAD
+=======
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+>>>>>>> joebain-master
 	};
 
 	/*!
@@ -404,6 +408,10 @@ window.Humanize = {};
 		decimals = decimals === undefined ? 0 : decimals;
 		return number_format( number, decimals, '.', ',' );
 	};
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> joebain-master
 	return this.date(format, timestamp);
 }
 function number_format( number, decimals, dec_point, thousands_sep ) {
@@ -581,6 +589,11 @@ Humanize.naturalTime = function( timestamp, format ) {
 					hours = Math.round(minutes/60);
 					return "in about "+hours+" hours";
 				} else if ( ! minutes ) {
+<<<<<<< HEAD
+=======
+=======
+
+>>>>>>> joebain-master
 	/*!
 	intword
 	Converts a large integer to a friendly text representation. Works best for numbers over 1 million.
@@ -722,16 +735,39 @@ Humanize.naturalTime = function( timestamp, format ) {
 				minutes = Math.round( seconds / 60 );
 				/*! Process minutes */
 				if ( ! minutes ) {
+<<<<<<< HEAD
 					if ( seconds <= 10 ) {
 						return "now"
 					} else {
 						return seconds + " seconds ago";
+=======
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+					if ( seconds <= 10 ) {
+						return "now"
+					} else {
+<<<<<<< HEAD
+
+						return "in "+seconds+" seconds";
+=======
+						return seconds + " seconds ago";
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+>>>>>>> joebain-master
 					}
 				} else if ( minutes === 1 ) {
 					return "one minute ago";
 				} else {
 					return ""+minutes+" minutes ago";
 				}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+			} else if ( minutes === 1 ) {
+				return "one minute ago";
+			} else {
+				return minutes+" minutes ago";
+=======
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+>>>>>>> joebain-master
 			}
 		}
 
@@ -778,6 +814,11 @@ Humanize.naturalTime = function( timestamp, format ) {
 		}	
 		return number + end;
 	};
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+>>>>>>> joebain-master
 	var leastSignificant = number % 10;
 	var end = '';
 	switch( leastSignificant ) {
@@ -817,6 +858,10 @@ Humanize.filesizeformat = function(filesize) {
 			filesize = number_format(filesize / 1024, 0) + ' KB';
   		} else {
 			filesize = number_format(filesize, 0) + ' bytes';
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> joebain-master
 	/*!
 	filesizeformat
 	Formats the value like a 'human-readable' file size (i.e. '13 KB', '4.1 MB', '102 bytes', etc).
@@ -838,10 +883,18 @@ Humanize.filesizeformat = function(filesize) {
 			} else {
 				filesize = number_format(filesize, 0) + ' bytes';
 				};
+<<<<<<< HEAD
+=======
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+>>>>>>> joebain-master
 			};
 		};
 		return filesize;
 	};
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> joebain-master
 	return filesize;
 };
 /*!
@@ -924,6 +977,10 @@ Humanize.truncatechars = function( string, length ) {
 /*!
 truncatewords
 Truncates a string after a certain number of words.
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> joebain-master
 	/*!
 	linebreaks
 	Replaces line breaks in plain text with appropriate HTML; a single newline becomes an HTML line break (<br />) and a new line followed by a blank line becomes a paragraph break (</p>).
@@ -941,6 +998,10 @@ Truncates a string after a certain number of words.
 	/*!
 	linebreaksbr
 	Converts all newlines in a piece of plain text to HTML line breaks (<br />).
+<<<<<<< HEAD
+=======
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+>>>>>>> joebain-master
 
 	For example:
 
@@ -954,7 +1015,16 @@ Truncates a string after a certain number of words.
 	pluralize
 	Returns a plural suffix if the value is not 1. By default, this suffix is 's'.
 
+<<<<<<< HEAD
 	Example:
+=======
+<<<<<<< HEAD
+{{ value|truncatewords:2 }}
+If value is "Joel is a slug", the output will be "Joel is …".
+=======
+	Example:
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+>>>>>>> joebain-master
 
 	You have {{ num_messages }} message{{ num_messages|pluralize }}.
 	If num_messages is 1, the output will be You have 1 message. If num_messages is 2 the output will be You have 2 messages.
@@ -977,7 +1047,22 @@ Truncates a string after a certain number of words.
 			plural = suffix2;
 		} else if ( suffix1 !== undefined ) {
 			plural = suffix1;
+<<<<<<< HEAD
 		}		
+=======
+		}
+<<<<<<< HEAD
+		result += array[ i ];
+		result += ' ';
+	}
+	if ( array.length > length ) {
+		result += '…';
+	}
+	return result;
+};
+=======
+		
+>>>>>>> joebain-master
 		return parseInt( number ) === 1 ? singular : plural;
 	};
 
@@ -1031,3 +1116,7 @@ Truncates a string after a certain number of words.
 	};
 
 })();
+<<<<<<< HEAD
+=======
+>>>>>>> ae54bd3cf19e1688fa97c96d5aa770d1c1dcfaee
+>>>>>>> joebain-master
