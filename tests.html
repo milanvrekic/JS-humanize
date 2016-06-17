@@ -24,6 +24,9 @@ function runTests( tests ) {
 	}
 	document.write( '</table>' );
 }
+function time() {
+	return ( new Date() ).getTime() / 1000;
+}
 var tests = [
 	['Humanize.intcomma( 4500000 )','4,500,000']
 ,	['Humanize.intcomma( 450000 )', '450,000']
